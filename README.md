@@ -10,7 +10,6 @@ Integrate wechat,weibo,qq,alipay to your react native application.
 2. Click "New Group", and rename it to "OpenShare", right click "Add Files to 'App' ...", select all files under the ./src directory , and added them to OpenShare group.
 3. Edit Info.plist :
 
-
 ```
 <key>CFBundleURLTypes</key>
 <array>
@@ -37,8 +36,7 @@ Integrate wechat,weibo,qq,alipay to your react native application.
 ```
 
 4. Edit AppDelegate.m :
-	Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
-
+Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
 
 ```
 [OpenShare connectQQWithAppId:@"1103194207"];
