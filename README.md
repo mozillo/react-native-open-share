@@ -1,5 +1,5 @@
 # react-native-open-share
-Integrate wechat,weibo,qq,alipay to your react native application.
+Integrate wechat,weibo,qq,alipay [share,payment,login] to your react native application.
 ## Screen Shot
 
 <img src="https://raw.githubusercontent.com/mozillo/react-native-open-share/master/screenshot_1.png" width="276"/>
