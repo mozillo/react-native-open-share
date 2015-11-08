@@ -1,0 +1,23 @@
+{
+  "name": "react-native-open-share",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mozillo/react-native-open-share.git"
+  },
+  "keywords": [
+    "share",
+    "react-native"
+  ],
+  "author": "mozillo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mozillo/react-native-open-share/issues"
+  },
+  "homepage": "https://github.com/mozillo/react-native-open-share#readme"
+}
