@@ -1,1 +1,167 @@
 # react-native-open-share
+Integrate wechat,weibo,qq,alipay to your react native application.
+## Screen Shot
+
+<img src="https://raw.githubusercontent.com/mozillo/react-native-open-share/master/screenshot_1.png" width="276"/>
+<img src="https://raw.githubusercontent.com/mozillo/react-native-open-share/master/screentshot_2.png" width="276"/>
+
+##Installation
+1. Run `npm install https://github.com/mozillo/react-native-open-share.git --save` in your project directory.
+2. Click "New Group", and rename it to "OpenShare", right click "Add Files to 'App' ...", select all files under the ./src directory , and added them to OpenShare group.
+3. Edit Info.plist :
+
+
+```
+<key>CFBundleURLTypes</key>
+<array>
+<dict>
+  <key>CFBundleURLName</key>
+  <string>OpenShare</string>
+  <key>CFBundleURLSchemes</key>
+  <array>
+    <!--Wechat-->
+    <string>wxd930ea5d5a258f4f</string>
+    <!--QQ-->
+    <string>tencent1103194207</string>
+    <string>tencent1103194207.content</string>
+    <string>QQ41C1685F</string>
+    <!--Weibo-->
+    <string>wb402180334</string>
+    <!--Renren-->
+    <string>renrenshare228525</string>
+    <!--facebook-->
+    <string>fb776442542471056</string>
+  </array>
+</dict>
+</array>
+```
+
+4. Edit AppDelegate.m :
+	Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
+
+
+```
+[OpenShare connectQQWithAppId:@"1103194207"];
+[OpenShare connectWeiboWithAppKey:@"402180334"];
+[OpenShare connectWeixinWithAppId:@"wxd930ea5d5a258f4f"];
+[OpenShare connectRenrenWithAppId:@"228525" AndAppKey:@"1dd8cba4215d4d4ab96a49d3058c1d7f"];
+```
+
+and add this after "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
+
+```
+-(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
+  //第二步：添加回调
+  if ([OpenShare handleOpenURL:url]) {
+    return YES;
+  }
+  //这里可以写上其他OpenShare不支持的客户端的回调，比如支付宝等。
+  return YES;
+}
+```
+
+Done.
+
+## Usage
+
+example: 
+
+```
+'use strict';
+
+var React = require('react-native');
+var {
+  AppRegistry,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  DeviceEventEmitter,
+  AlertIOS,
+} = React;
+
+var openShare = require('react-native-open-share');
+
+var App = React.createClass({
+
+  _wechatLogin: function() {
+    var _this = this;
+    openShare.wechatLogin();
+
+    if(!_this.wechatLogin) {
+      _this.wechatLogin = DeviceEventEmitter.addListener(
+        'managerCallback',
+        (response) => {
+          AlertIOS.alert(
+            'response',
+            JSON.stringify(response)
+          );
+          
+          _this.wechatLogin.remove();
+          delete _this.wechatLogin;
+        }
+      );
+    }
+  },
+
+  render: function() {
+    return (
+      <View style={styles.container}>
+
+        <TouchableOpacity onPress={this._wechatLogin}>
+          <Text>WeChat Login</Text>
+        </TouchableOpacity>
+
+        <Text style={styles.welcome}>
+          Welcome to React Native!
+        </Text>
+        <Text style={styles.instructions}>
+          To get started, edit index.ios.js
+        </Text>
+        <Text style={styles.instructions}>
+          Press Cmd+R to reload,{'\n'}
+          Cmd+D or shake for dev menu
+        </Text>
+      </View>
+    );
+  }
+});
+
+var styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#F5FCFF',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+  },
+  instructions: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+  },
+});
+
+AppRegistry.registerComponent('App', () => App);
+
+```
+## API
+
+```
+openShare.qqLogin();
+openShare.wechatLogin();
+openShare.weiboLogin();
+```
+
+##Other
+```
+
+wechat access token request: 
+https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code
+
+wechat user profile request:
+https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
