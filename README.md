@@ -6,37 +6,40 @@ Integrate wechat,weibo,qq,alipay to your react native application.
 <img src="https://raw.githubusercontent.com/mozillo/react-native-open-share/master/screentshot_2.png" width="276"/>
 
 ##Installation
-1. Run `npm install https://github.com/mozillo/react-native-open-share.git --save` in your project directory.
-2. Click "New Group", and rename it to "OpenShare", right click "Add Files to 'App' ...", select all files under the ./src directory , and added them to OpenShare group.
-3. Edit Info.plist :
+1.Run `npm install https://github.com/mozillo/react-native-open-share.git --save` in your project directory.
+
+2.Click "New Group", and rename it to "OpenShare", right click "Add Files to 'App' ...", select all files under the ./src directory , and added them to OpenShare group.
+
+3.Edit Info.plist
 
 ```
-<key>CFBundleURLTypes</key>
-<array>
-<dict>
-  <key>CFBundleURLName</key>
-  <string>OpenShare</string>
-  <key>CFBundleURLSchemes</key>
+  <key>CFBundleURLTypes</key>
   <array>
-    <!--Wechat-->
-    <string>wxd930ea5d5a258f4f</string>
-    <!--QQ-->
-    <string>tencent1103194207</string>
-    <string>tencent1103194207.content</string>
-    <string>QQ41C1685F</string>
-    <!--Weibo-->
-    <string>wb402180334</string>
-    <!--Renren-->
-    <string>renrenshare228525</string>
-    <!--facebook-->
-    <string>fb776442542471056</string>
+    <dict>
+      <key>CFBundleURLName</key>
+      <string>RNShare</string>
+      <key>CFBundleURLSchemes</key>
+      <array>
+        <!--wechat-->
+        <string>wxd930ea5d5a258f4f</string>
+        <!--qq-->
+        <string>tencent1103194207</string>
+        <string>tencent1103194207.content</string>
+        <string>QQ41C1685F</string>
+        <!--weibo-->
+        <string>wb402180334</string>
+        <!--renren-->
+        <string>renrenshare228525</string>
+        <!--facebook-->
+        <string>fb776442542471056</string>
+        
+      </array>
+    </dict>
   </array>
-</dict>
-</array>
 ```
 
-4. Edit AppDelegate.m :
-Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
+4.Edit AppDelegate.m :
+	Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions"
 
 ```
 [OpenShare connectQQWithAppId:@"1103194207"];
@@ -58,7 +61,7 @@ and add this after "(BOOL)application:(UIApplication *)application didFinishLaun
 }
 ```
 
-Done.
+###Done.
 
 ## Usage
 
@@ -163,3 +166,4 @@ https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code
 
 wechat user profile request:
 https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID
+
