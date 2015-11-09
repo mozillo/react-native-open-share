@@ -1,5 +1,6 @@
 # react-native-open-share
 Integrate wechat,weibo,qq,alipay [share,payment,login] to your react native application.
+### built from [OpenShare](https://github.com/100apps/openshare) 
 ## Screen Shot
 
 <img src="https://raw.githubusercontent.com/mozillo/react-native-open-share/master/screenshot_1.png" width="276"/>
@@ -150,7 +151,7 @@ var styles = StyleSheet.create({
 AppRegistry.registerComponent('App', () => App);
 
 ```
-## API
+## current API
 
 ```
 openShare.qqLogin();
