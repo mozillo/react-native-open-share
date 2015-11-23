@@ -9,10 +9,18 @@ Integrate wechat,weibo,qq,alipay [share,payment,login] to your react native appl
 ##Installation
 1.Run `npm install https://github.com/mozillo/react-native-open-share.git --save` in your project directory.
 
-2.Click "New Group", and rename it to "OpenShare", right click "Add Files to 'App' ...", select all files under the ./src directory , and added them to OpenShare group.
+2.Select your project , and find your [ ProjectName ] directory , Select it and right click "New Group", and rename it to "OpenShare", right click "Add Files to 'App' ...", select all files under the ./node_modules/react-native-open-share/src/ directory , and added them to OpenShare group.
 
-3.Edit Info.plist
+3.Edit Info.plist, Open As => Source code, append ***new Info.plist code*** content after 
 
+```
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+```
+
+new Info.plist code:
 ```
   <key>CFBundleURLTypes</key>
   <array>
@@ -40,6 +48,9 @@ Integrate wechat,weibo,qq,alipay [share,payment,login] to your react native appl
 ```
 
 4.Edit AppDelegate.m :
+	Add header file:
+	#import "OpenShareHeader.h"
+
 	Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions"
 
 ```
