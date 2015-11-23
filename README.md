@@ -48,10 +48,11 @@ new Info.plist code:
 ```
 
 4.Edit AppDelegate.m :
-	Add header file:
-	#import "OpenShareHeader.h"
-
-	Add code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions"
+Add header file:
+```
+#import "OpenShareHeader.h"
+```
+Add these code to "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
 
 ```
 [OpenShare connectQQWithAppId:@"1103194207"];
@@ -60,7 +61,7 @@ new Info.plist code:
 [OpenShare connectRenrenWithAppId:@"228525" AndAppKey:@"1dd8cba4215d4d4ab96a49d3058c1d7f"];
 ```
 
-and add this after "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" :
+and add this method after "(BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions" block:
 
 ```
 -(BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation{
