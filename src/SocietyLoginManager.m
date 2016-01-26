@@ -43,7 +43,7 @@ RCT_EXPORT_METHOD(weiboLogin) {
                                                     body:@{
                                                            @"title": @"QQ登录成功",
                                                            @"res": message
-                                                          }
+                                                           }
      ];
     
   } Fail:^(NSDictionary *message, NSError *error) {
@@ -52,7 +52,7 @@ RCT_EXPORT_METHOD(weiboLogin) {
                                                            @"title": @"QQ登录失败",
                                                            @"res": message,
                                                            @"error": error,
-                                                          }
+                                                           }
      ];
   }];
 }
@@ -63,7 +63,7 @@ RCT_EXPORT_METHOD(weiboLogin) {
                                                     body:@{
                                                            @"title": @"微信登录成功",
                                                            @"res": message
-                                                          }
+                                                           }
      ];
     
   } Fail:^(NSDictionary *message, NSError *error) {
@@ -72,24 +72,54 @@ RCT_EXPORT_METHOD(weiboLogin) {
                                                            @"title": @"微信登录失败",
                                                            @"res": message,
                                                            @"error": error,
-                                                          }
+                                                           }
      ];
   }];
 }
 
+//处理 返回数据中的expirationDate值，因为值的格式有问题，转换成 string 后才能符合 json 的格式要求。 ********开始********
+//Commit by Parry at 2016-01-26
+
+- (NSMutableDictionary*)change: (NSDictionary *)message {
+
+  NSMutableDictionary* data = [message mutableCopy];
+  if ([message objectForKey:@"expirationDate"]) {
+    
+    NSDateFormatter *dateToStringFormatter = [[NSDateFormatter alloc] init];
+    [dateToStringFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    
+    NSDate *date= [data objectForKey:@"expirationDate"];
+    NSString *strDate = [dateToStringFormatter stringFromDate:date];
+    
+    data = [message mutableCopy];
+    
+    [data setObject:strDate forKey:@"expirationDate"];
+  }
+  return data;
+  
+}
+
+//处理 返回数据中的expirationDate值，因为值的格式有问题，转换成 string 后才能符合 json 的格式要求。 ********结束********
+
 -(void)_callWeiboLogin {
-  [OpenShare WeiboAuth:@"all" redirectURI:@"http://openshare.gfzj.us/" Success:^(NSDictionary *message) {
+  [OpenShare WeiboAuth:@"all" redirectURI:@"http://sns.whalecloud.com" Success:^(NSDictionary *message) {
+    
+    NSMutableDictionary* data = [self change:message];
+    
     [self.bridge.eventDispatcher sendDeviceEventWithName:@"managerCallback"
                                                     body:@{
                                                            @"title": @"微博登录成功",
-                                                           @"res": message,
+                                                           @"res": data,
                                                            }
      ];
   } Fail:^(NSDictionary *message, NSError *error) {
+    
+    NSMutableDictionary* data = [self change:message];
+    
     [self.bridge.eventDispatcher sendDeviceEventWithName:@"managerCallback"
                                                     body:@{
                                                            @"title": @"微博登录失败",
-                                                           @"res": message,
+                                                           @"res": data,
                                                            @"error": error
                                                            }
      ];
